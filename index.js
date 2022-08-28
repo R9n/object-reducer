@@ -10,23 +10,34 @@ function auxReduceObject(plainObject, paramName, value) {
     }
 }
 
-function reduceObjectSync(object) {
+function reduceObjectSync(object, checkForCycles = true) {
     const plain = Object.create(null, {});
 
     if (!object) {
         return {};
     }
 
+    if (checkForCycles && checkForCyclicReferences(object)) {
+        throw new Error(
+            'It is not possible to reduce this object due to the presence of cyclic references'
+        );
+    }
     auxReduceObject(plain, 'start', object);
 
     return plain;
 }
 
-async function reduceObjectAsync(object) {
+async function reduceObjectAsync(object, checkForCycles = true) {
     const plain = Object.create(null, {});
 
     if (!object) {
         return {};
+    }
+
+    if (checkForCycles && checkForCyclicReferences(object)) {
+        throw new Error(
+            'It is not possible to reduce this object due to the presence of cyclic references'
+        );
     }
 
     auxReduceObject(plain, 'start', object);

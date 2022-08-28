@@ -3,7 +3,7 @@ const { reduceObjectAsync, reduceObjectSync } = require('../index');
 
 // Configure test variables
 
-const numberOfSamplesToReduce = 10000000;
+const numberOfSamplesToReduce = 1000;
 
 console.log('Starting test for the sync version');
 

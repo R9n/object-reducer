@@ -76,4 +76,56 @@ describe('index.js', () => {
         expect(hasCirculareferenceInSecondObject).toBe(true);
         expect(hasCirculareferenceInGoodObject).toBe(false);
     });
+
+    it('Should throw error with object with ciclic reference in sync version', async () => {
+        const firstObject = {};
+
+        const secondObject = {};
+
+        firstObject.secondObject = secondObject;
+
+        secondObject.firstObject = firstObject;
+
+        expect(() => {
+            reduceObjectSync(firstObject);
+        }).toThrow(
+            /It is not possible to reduce this object due to the presence of cyclic references/
+        );
+        expect(() => {
+            reduceObjectSync(secondObject);
+        }).toThrow(
+            /It is not possible to reduce this object due to the presence of cyclic references/
+        );
+    });
+    it('Should throw error with object with ciclic reference in async version', async () => {
+        const firstObject = {};
+
+        const secondObject = {};
+
+        firstObject.secondObject = secondObject;
+
+        secondObject.firstObject = firstObject;
+
+        expect(async () => {
+            await reduceObjectAsync(firstObject);
+        }).rejects.toThrow(
+            /It is not possible to reduce this object due to the presence of cyclic references/
+        );
+
+        expect(async () => {
+            await reduceObjectAsync(secondObject);
+        }).rejects.toThrow(
+            /It is not possible to reduce this object due to the presence of cyclic references/
+        );
+    });
+
+    it('Should return a empty object when undefinned object is passed', async () => {
+        const object = undefined;
+
+        const emptyObject1 = reduceObjectSync(object);
+        const emptyObject2 = await reduceObjectAsync(object);
+
+        expect(emptyObject1).toEqual({});
+        expect(emptyObject2).toEqual({});
+    });
 });
