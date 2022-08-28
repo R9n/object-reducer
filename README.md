@@ -1,5 +1,6 @@
 ## OBJECT-REDUCER
 
+[![codecov](https://codecov.io/gh/R9n/object-reducer/branch/main/graph/badge.svg?token=WWYJYPFUEO)](https://codecov.io/gh/R9n/object-reducer)
 [![Generic badge](https://img.shields.io/badge/codestyle-standart-<COLOR>.svg)](https://shields.io/)
 [![Generic badge](https://img.shields.io/badge/dependencies-0-<COLOR>.svg)](https://shields.io/)
 
